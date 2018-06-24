@@ -1,3 +1,4 @@
-#Scrapper for Ultima Ratio Regum Website blog posts
+# Scrapper for Ultima Ratio Regum Website
 
-Used to mace copy of URR website (http://www.ultimaratioregum.co.uk/game/)
+Used to dl URR website blog posts (http://www.ultimaratioregum.co.uk/game/)
+for fun and profit :)
