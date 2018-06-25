@@ -5,8 +5,8 @@
 
 from link import Link
 
-l = Link('aaa', False)
-k = Link('bbb', True)
+l = Link(link='aaa', visited=True)
+k = Link(link='bbb', title='Title', visited=True)
 
 print(k)
 print(l)
