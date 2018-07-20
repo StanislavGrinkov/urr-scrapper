@@ -1,0 +1,31 @@
+body {
+    background: #ddd;
+    font: 15px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.625em;
+}
+
+p {
+    margin-bottom: 1.625em;
+}
+
+dd {
+    margin-bottom: 1.625em;
+}
+
+div.inner {
+    width: 70%;
+    margin: 0 auto;
+}
+
+div.container {
+    background: #fff;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.wp-caption {
+    background: #eee;
+    margin-bottom: 1.625em;
+    padding: 9px;
+}
