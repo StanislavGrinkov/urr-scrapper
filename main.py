@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup as bs4
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--outdir', nargs='?', default='out')
+    parser.add_argument('--index', nargs='?', default='1')
     return parser.parse_args()
 
 
@@ -24,7 +25,11 @@ def copy_css_to_out_dir(css_file, outdir):
 
 def fetch_url(url, as_binary = False):
     print(rf'Fetching: {url}')
-    response = requests.get(url)
+    try:
+        response = requests.get(url, timeout=10)
+    except (requests.exceptions.Timeout):
+        print(rf'----->  Exception while fetching {url}.')
+        return None
     if response.status_code == 200:
         return response.content if as_binary else response.text
     else:
@@ -47,7 +52,7 @@ def url_to_file_name(url, file_name_template='{}.html'):
     if (url[-1] == '/'):
         end_index = -1
 
-    return file_name_template.format(url[start_index:end_index].replace('/', '-'))
+    return file_name_template.format(url[start_index:end_index].replace('/', '-').replace(':--', ''))
 
 
 def nav_link_render(url, class_, title):
@@ -84,8 +89,9 @@ def process_article_images(contents, outdir):
         if path.exists(path.join(outdir, image_file_name)):
             continue
         image_data = fetch_url(image_url, True)
-        with open(path.join(outdir, image_file_name), 'wb') as f:
-            f.write(image_data)
+        if image_data:
+            with open(path.join(outdir, image_file_name), 'wb') as f:
+                f.write(image_data)
         del image_link_tag['srcset']
         image_link_tag['src'] = image_file_name
         image_link_tag.parent['href'] = image_file_name
@@ -123,8 +129,8 @@ def get_next_page_link(dom):
     return link[0].get('href') if link else None
 
 
-def scrap(template, outdir):
-    url ='http://www.ultimaratioregum.co.uk/game/' 
+def scrap(template, outdir, index = 1):
+    url = 'http://www.ultimaratioregum.co.uk/game/' if index == 1 else rf'http://www.ultimaratioregum.co.uk/game/page/{index}' 
     while (url is not None):
         dom = bs4(fetch_url(url), 'html.parser')
         for link in dom.select('h1.entry-title > a'):
@@ -137,4 +143,4 @@ args = get_args()
 print_header()
 make_output_dir(path.join(args.outdir, 'img'))
 copy_css_to_out_dir('src/main.css', args.outdir)
-scrap(read_template('src/template.html'), args.outdir)
+scrap(read_template('src/template.html'), args.outdir, args.index)
