@@ -7,7 +7,7 @@ SESSION=pydev
 tmux has-session -t "$SESSION"
 if (( $? != 0 )); then
     tmux new-session -s "$SESSION" -n 'Py dev' -d
-    tmux split-window -v -t "$SESSION" -p 35
+    tmux split-window -v -t "$SESSION" -p 30
     tmux send-keys -t "$SESSION:1.2" ' source venv/bin/activate && reset' C-m
     tmux send-keys -t "$SESSION:1.1" ' vim' C-m
 

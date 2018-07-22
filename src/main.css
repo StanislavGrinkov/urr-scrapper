@@ -4,6 +4,23 @@ body {
     line-height: 1.625em;
 }
 
+nav {
+    width: 100%;
+    padding: 20px 0px;
+}
+
+span.prev {
+    float: left;
+}
+
+span.next {
+    float: right;
+}
+
+span.next:after {
+    clear: both;
+}
+
 p {
     margin-bottom: 1.625em;
 }
