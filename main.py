@@ -85,6 +85,7 @@ def extract_one_image(link_tag, attr, outdir):
     image_url = link_tag.get(attr)
     print(rf'Trying to retrieve {image_url}')
     image_file_name = url_to_file_name(image_url, 'img/{}')
+    link_tag[attr] = image_file_name
     if path.exists(path.join(outdir, image_file_name)):
         return
     image_data = fetch_url(image_url, True)
@@ -92,7 +93,6 @@ def extract_one_image(link_tag, attr, outdir):
         return
     with open(path.join(outdir, image_file_name), 'wb') as f:
         f.write(image_data)
-    link_tag[attr] = image_file_name
 
 
 
