@@ -79,22 +79,29 @@ def nav_link_extract_prev(dom):
 def nav_link_extract_next(dom):
     return nav_link_extract(dom, 'span.nav-next > a[href]')
 
+def extract_one_image(link_tag, attr, outdir):
+    if not link_tag.get(attr):
+        return
+    image_url = link_tag.get(attr)
+    print(rf'Trying to retrieve {image_url}')
+    image_file_name = url_to_file_name(image_url, 'img/{}')
+    if path.exists(path.join(outdir, image_file_name)):
+        return
+    image_data = fetch_url(image_url, True)
+    if not image_data:
+        return
+    with open(path.join(outdir, image_file_name), 'wb') as f:
+        f.write(image_data)
+    link_tag[attr] = image_file_name
+
+
 
 def process_article_images(contents, outdir):
     print('Retrieving article images')
-    for image_link_tag in contents.select('img'):
-        image_url = image_link_tag.get('src')
-        print(rf'Trying to retrieve {image_url}')
-        image_file_name = url_to_file_name(image_url, 'img/{}')
-        if path.exists(path.join(outdir, image_file_name)):
-            continue
-        image_data = fetch_url(image_url, True)
-        if image_data:
-            with open(path.join(outdir, image_file_name), 'wb') as f:
-                f.write(image_data)
-        del image_link_tag['srcset']
-        image_link_tag['src'] = image_file_name
-        image_link_tag.parent['href'] = image_file_name
+    for link_tag in contents.select('img'):
+        extract_one_image(link_tag, 'src', outdir)
+        extract_one_image(link_tag.parent, 'href', outdir)
+        del link_tag['srcset']
 
 
 def process_article(article_url, template, outdir):
