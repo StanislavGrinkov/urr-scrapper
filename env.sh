@@ -3,6 +3,11 @@
 # this script requires tmux base-index and pane-base-index set to 1
 
 SESSION=pydev
+VENV_DIR=venv
+
+if [[ ! -d "$VENV_DIR/" ]]; then
+    python3 -m venv "$VENV_DIR"
+fi
 
 tmux has-session -t "$SESSION"
 if (( $? != 0 )); then

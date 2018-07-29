@@ -25,6 +25,13 @@ p {
     margin-bottom: 1.625em;
 }
 
+p > a {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+}
+
 dd {
     margin-bottom: 1.625em;
 }
