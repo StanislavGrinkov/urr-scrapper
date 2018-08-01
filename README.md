@@ -1,4 +1,8 @@
-# Scrapper for Ultima Ratio Regum Website
+# Scrapper for various roguelike blog articles
 
-Used to dl URR website blog posts (http://www.ultimaratioregum.co.uk/game/)
-for fun and profit :)
+Included
+* Ultima Ratio Regum Website
+* Grid Sage Games (COGMIND)
+* X-ComRL
+
+

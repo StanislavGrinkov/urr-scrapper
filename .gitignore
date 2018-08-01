@@ -4,6 +4,5 @@ __pycache__/
 __pycache__/*
 *.swp
 .*.swp_
-out/
-out/*
+articles_*/
 gmon.out
