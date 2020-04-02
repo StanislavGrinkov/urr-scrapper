@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup as bs4
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--outdir', nargs='?', default='out')
+    parser.add_argument('--outdir', nargs='?', default='articles_xcomrl')
     parser.add_argument('--index', nargs='?', default='1')
     return parser.parse_args()
 

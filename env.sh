@@ -2,11 +2,16 @@
 
 # this script requires tmux base-index and pane-base-index set to 1
 
-SESSION=pydev
+SESSION=pydev-"${PWD##*/}"
 VENV_DIR=venv
 
 if [[ ! -d "$VENV_DIR/" ]]; then
     python3 -m venv "$VENV_DIR"
+    "$VENV_DIR/bin/pip3 install --upgrade pip"
+fi
+
+if [[ ! -d ".git" ]]; then
+    git init
 fi
 
 tmux has-session -t "$SESSION"
